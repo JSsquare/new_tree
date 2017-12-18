@@ -67,7 +67,7 @@ Trition.prototype.intentHandlers = {
 function pluckNewTreeFruit(response, item) {
     var foodDrinkItem = item.food.value ? item.food.value : item.drink.value;
     foodDrinkItem = foodDrinkItem ? foodDrinkItem : item.Other_Food.value;
-    var cardTitle = foodDrinkItem ? "New Tree Fruit: " +  foodDrinkItem.charAt(0).toUpperCase() + foodDrinkItem.slice(1) : "Can you try that again ?";
+    var cardTitle = foodDrinkItem ? foodDrinkItem.charAt(0).toUpperCase() + foodDrinkItem.slice(1) + " : your New Tree Fruit" : "Can you try that again ?";
         req.post({
            url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
            headers: {
@@ -130,8 +130,8 @@ function constructSpeechOutput(body){
                      nutrientValues.vitamind = calcParam(foodResult.full_nutrients[key].value, 'micrograms');
                      break;
                  case 401:
-                     totalGrams = totalGrams + calcParam(foodResult.full_nutrients[key].value, 'grams');
-                     nutrientValues.vitaminc = calcParam(foodResult.full_nutrients[key].value, 'grams');
+                     totalGrams = totalGrams + calcParam(foodResult.full_nutrients[key].value, 'milligrams');
+                     nutrientValues.vitaminc = calcParam(foodResult.full_nutrients[key].value, 'milligrams');
                      break;
                  case 415:
                      totalGrams = totalGrams + calcParam(foodResult.full_nutrients[key].value, 'milligrams');
@@ -249,10 +249,10 @@ function addOnSpeech(nutrientValues, totalGrams){
 
 function pickRandomFrom(randomText){
     var welcomeText = ["Hey! Welcome to The New Tree. I can help you eat healthy. Ask me how healthy your food item is. Just say what are you eating.",
-                        "Hola! Welcome to The New Tree. You can ask me how healthy your food item is",
+                        "Hola! Welcome to The New Tree. I know how healthy your food item is. Tell me what are you having?",
                         "Hello from New Tree. Ask me for a Fact Fruit.",
                       "Hey! Welcome to The New Tree. What are you eating now."];
-    var noItemFound = ["Oh! I am not sure if that is edible. Please feed me, by sending an email of that food item to. Googling. Johnny. at Gmail dot com",
+    var noItemFound = ["Oh! I dint know that was edible. Please feed me, by sending an email of that food item to. Googling. Johnny. at Gmail dot com",
                        "I am sorry. I had trouble understanding that. If you are interested, ask me, to pick a Fact Fruit.",
                        "hmmm, I have not tasted that item. Is that edible? Please feed me, by sending an email to Googling. Johnny. at Gmail dot com"];
     var nutritionSpeechConnector = [" contains approximately ", " has more or less ", " has roughly ", " has close to "];
@@ -268,8 +268,8 @@ function pickRandomFrom(randomText){
                      "A fastfood Ham Burger can contain. Meat from more than hundreds, or even thousands of different cattle.",
                      "Shellac is a substance used, to improve shine of furniture. It is also used in candies and jellys. Oh. My. God!",
                      "The fact is, 73% of Americans would eat healthy, if the food cost less.",
-                     "Water! Water! It can help you, prevent headache, increase blood volume, fight fever, curb apetite, eliminate body waste, keep your cool, boost your mind, relieve fatigue, absorb nutrients, flush toxins, keep skin glowing, prevent sprains, save money and many many many more.",
-                     "Junk Food Fact. It takes 524 Burps, to burn off 1 large fries."];
+                     "Water! Water! It can help you, prevent headache, increase blood volume, fight fever, curb apetite, eliminate body waste, keep your cool, boost your mind, relieve fatigue, absorb nutrients, flush toxins, keep skin glowing, prevent sprains, save money and many many many more. So keep drinking",
+                     "Junk Food Fact. It takes about 524 Burps, to burn off 1 large fries."];
 
     //var factFruits = ["Water! Water! It can help you, prevent headache, increase blood volume, fight fever, curb apetite, eliminate body waste, keep your cool, boost your mind, relieve fatigue, flush toxins, keep skin glowing, prevent sprains, save money and many many many more."];
     var cancelSpeech = ["Remember. A good diet, is not about eating less. It is eating right. Have a nice day!",
